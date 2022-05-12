@@ -100,15 +100,15 @@ static size_t xFreeBytesRemaining = configADJUSTED_HEAP_SIZE;
 {		                        																			\
 BlockLink_t *pxIterator, *pxprevious, *target;												\
 size_t xBlockSize;                                                                                                                                            \
-uint32_t startaddress, endaddress, tempeendaddress;                                                                    \
-tempeendaddress = (uint32_t)pxBlockToInsert + (uint32_t)pxBlockToInsert->xBlockSize;   \
+int startaddress, endaddress, tempeendaddress;                                                                    \
+tempeendaddress = pxBlockToInsert + (pxBlockToInsert->xBlockSize);   \
 pxprevious = &xStart;                                                                                                                                     \
 target = xStart.pxNextFreeBlock;                                                                                                                \
 while(target != &xEnd)                                                                                                                                    \
 {                                                                                                                                                                               \
-	startaddress = (uint32_t) target;                                                                                                         \
-	endaddress = startaddress + (uint32_t)target->xBlockSize;                                                       \
-	if (startaddress == tempeendaddress||endaddress ==(uint32_t)pxBlockToInsert )             \
+	startaddress = target;                                                                                                         \
+	endaddress = startaddress + (target->xBlockSize);                                                       \
+	if (startaddress == tempeendaddress||endaddress ==pxBlockToInsert )             \
 	{                                                                                                                                                                        \
 		pxBlockToInsert->xBlockSize = pxBlockToInsert->xBlockSize +target->xBlockSize;     \
 		pxprevious->pxNextFreeBlock = target->pxNextFreeBlock;	                                                \
